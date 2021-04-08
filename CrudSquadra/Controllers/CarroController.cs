@@ -1,5 +1,7 @@
-﻿using CrudSquadra.Entities;
+﻿using CrudSquadra.DTO.Carro.AdicionarCarro;
+using CrudSquadra.Entities;
 using CrudSquadra.Services;
+using CrudSquadra.UseCase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,10 +16,12 @@ namespace CrudSquadra.Controllers
     public class CarroController : ControllerBase
     {
         private readonly ICarroService _carro;
- 
-        public CarroController(ICarroService carro)
+        private readonly IAdicionarCarroUseCase _adicionarCarroUseCase;
+
+        public CarroController(ICarroService carro, IAdicionarCarroUseCase adicionarCarroUseCase)
         {
             _carro = carro;
+            _adicionarCarroUseCase = adicionarCarroUseCase;
         }
 
         [HttpGet]
@@ -33,9 +37,9 @@ namespace CrudSquadra.Controllers
         }
 
         [HttpPost]
-        public IActionResult carroAdd([FromBody] Carro novoCarro)
+        public IActionResult carroAdd([FromBody] AdicionarCarroRequest novoCarro)
         {
-            return Ok(_carro.AdicionarCarro(novoCarro));
+            return Ok(_adicionarCarroUseCase.Executar(novoCarro));
         }
 
         [HttpPut]

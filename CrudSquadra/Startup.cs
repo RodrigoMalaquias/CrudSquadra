@@ -1,5 +1,10 @@
+using CrudSquadra.Adapter;
+using CrudSquadra.Bordas.Adapter;
+using CrudSquadra.Bordas.Repositorios;
 using CrudSquadra.Context;
+using CrudSquadra.Repositorios;
 using CrudSquadra.Services;
+using CrudSquadra.UseCase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +41,15 @@ namespace CrudSquadra
 
             //Adicionando os servicos
             services.AddScoped<ICarroService, CarroService>();
+
+            services.AddScoped<IAdicionarCarroUseCase, AdicionarCarroUseCase>();
+            services.AddScoped<IAtualizarCarroUseCase, AtualizarCarroUseCase>();
+            services.AddScoped<IRemoverCarroUseCase, RemoverCarroUseCase>();
+            services.AddScoped<IRetornarCarroPorIdUseCase, RetornarCarroPorIdUseCase>();
+            services.AddScoped<IRetornarListaDeCarroUseCase, RetornarListaDeCarroUseCase>();
+            
+            services.AddScoped<IRepositorioCarros, RepositorioCarros>();
+            services.AddScoped<IAdicionarCarroAdapter, AdicionarCarroAdapter>();
 
             services.AddControllers();
 
